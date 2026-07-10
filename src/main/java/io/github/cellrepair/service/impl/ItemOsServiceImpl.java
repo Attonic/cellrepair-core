@@ -8,6 +8,7 @@ import io.github.cellrepair.repository.ItemOsRepository;
 import io.github.cellrepair.service.ItemOsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class ItemOsServiceImpl implements ItemOsService {
     private final ItemOsRepository itemOsRepository;
     private final ItemOsMapper itemOsMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public ItemOsDto findById(Long id) {
         var itemOs = itemOsRepository.findById(id)
@@ -25,6 +27,7 @@ public class ItemOsServiceImpl implements ItemOsService {
         return itemOsMapper.toDto(itemOs);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ItemOs> findByOrdemServicoId(Long ordemServicoId) {
         List<ItemOs> itensOs = itemOsRepository.findByOrdemServicoId(ordemServicoId);

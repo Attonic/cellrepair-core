@@ -37,12 +37,14 @@ public class OrdemServicoImpl implements OrdemServicoService {
     private final PecaRepository pecaRepository;
     private final ItemOsMapper itemOsMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public Page<OrdemServicoDto> findAll(Pageable pageable) {
         return ordemServicoRepository.findAll(pageable)
                 .map(ordemServicoMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public OrdemServicoDto findById(Long id) {
         var ordemServico = ordemServicoRepository.findById(id)
@@ -51,6 +53,7 @@ public class OrdemServicoImpl implements OrdemServicoService {
         return ordemServicoMapper.toDto(ordemServico);
     }
 
+    @Transactional
     @Override
     public OrdemServicoDto save(OrdemServicoDto ordemServicoDto) {
 
