@@ -21,13 +21,14 @@ public class ClienteServiceImpl implements ClienteService {
     private final ClienteRepository clienteRepository;
     private final ClienteMapper clienteMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public ClienteDto findById(Long id) {
         var cliente =  clienteRepository.findById(id)
                 .orElseThrow(() -> new NenhumResultadoException("Cliente não encontrado."));
         return clienteMapper.toDto(cliente);
     }
-
+    @Transactional(readOnly = true)
     @Override
     public Page<ClienteDto> findAll(Pageable pageable) {
         return clienteRepository.findAll(pageable)

@@ -8,6 +8,7 @@ import io.github.cellrepair.repository.AnexoOsRepository;
 import io.github.cellrepair.service.AnexoOsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class AnexoOsServiceImpl implements AnexoOsService {
     private final AnexoOsRepository anexoOsRepository;
     private final AnexoOsMapper anexoOsMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public AnexoOsDto findById(Long id) {
         var anexoOs = anexoOsRepository.findById(id)
@@ -25,6 +27,7 @@ public class AnexoOsServiceImpl implements AnexoOsService {
         return anexoOsMapper.toDto(anexoOs);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<AnexoOs> findByOrdemServicoId(Long ordemServicoId) {
         List<AnexoOs> anexoOs = anexoOsRepository.findByOrdemServicoId(ordemServicoId);
